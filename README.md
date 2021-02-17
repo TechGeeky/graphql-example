@@ -1,22 +1,36 @@
-# GraphQL Examples
+This repo is exact replica from here - https://github.com/graphql-dotnet/examples/.
+I am just using "AspNetCore" and "StarWars" folder. I also copied "GraphQLMiddleware.cs" file from "AspNetCoreCustom" folder into "AspNetCore" one in this repo as I needed that middleware for my project.
 
-Examples for [GraphQL.NET](https://github.com/graphql-dotnet/graphql-dotnet).
+Navigate to AspNetCore folder and then execute - 
 
-| Project          | Description |
-|------------------|-------------|
-| AspNetCore       | ASP.NET Core 3.1 app with GraphQL and Playground middlewares from [server](https://github.com/graphql-dotnet/server) project |
-| AspNetCoreMulti  | ASP.NET Core 3.1 multi-tenant (two schemas) app with GraphQL and Playground middlewares from [server](https://github.com/graphql-dotnet/server) project |
-| AspNetCoreCustom | ASP.NET Core 3.1 app with custom GraphQL and UI middlewares |
-| AspNetWebApi     | .NET Framework 4.6.1 Web API example |
-| AzureFunctions   | Using GraphQL in Azure Functions |
-| StarWars         | StarWars demo schema used in all examples |
+    ./run.sh
 
-See also:
+Once server starts up, you will see this line getting printed out on console - 
 
-- [Step-by-step introduction to GraphQL](https://graphql.org/learn/)
-- [GraphQL for .NET](https://github.com/graphql-dotnet/graphql-dotnet)
-- [ASP.NET Core Server + WebSockets Transport](https://github.com/graphql-dotnet/server)
+```
+Inside CustomerServiceImpl
+In
+Hello World: abc.json
+Inside CatalogServiceImpl
+```
 
-Other examples:
+In the above logs `In` and `Hello World: abc.json` lines are getting printed out from `DataImpl` class during server startup. Meaning it is getting initialized during startup for the first time which is fine. So I don't expect it to be called again whenever I make GraphQL request atleast that's what my understanding is.
 
-- [GraphQL.NET with EF Core and YesSql](https://github.com/PoisnFang/Poisn.GraphQL)
+Now after that if I open GraphQL UI playground url (http://localhost:3000/ui/playground) for the first time then the same logs gets printed out on console again. I am not sure why. And if I hit same GraphQL UI playground url again for second time then above logs isn't getting printed out.
+
+It looks like I am missing something very minor here. Is it because I have `ICatalogService catalogService, ICustomerService customerService` in the `StarWarsQuery` constructor?
+
+```
+Legacy code base:
+BaseMiddleware
+HealthServiceMiddleware
+DependencyBootstrap
+CatalogServiceImpl
+ICatalogService
+CustomerServiceImpl
+ICustomerService
+DataImpl
+IData
+```
+
+All other classes related to GraphQL are new code which I am trying to use to migrate my use case one by one.
