@@ -24,6 +24,8 @@ namespace Example
                 options.AllowSynchronousIO = true;
             });
             DependencyBootstrap.WireUpDependencies(services);
+            // ... some other code
+            // ... some other code
             var provider = services.BuildServiceProvider();
             BaseMiddleware.InitializeDependencies(provider);
         }
