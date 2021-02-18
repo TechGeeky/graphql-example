@@ -15,6 +15,9 @@ namespace Example
         public static void WireUpDependencies(IServiceCollection services)
         {
             var provider = services.BuildServiceProvider();
+            // ...
+            // old legacy code base here which uses provider
+            // ...
             try
             {
                 WireUpCore(services);
@@ -29,6 +32,7 @@ namespace Example
         {
             var localProvider = services.BuildServiceProvider();
             //..........
+            // old legacy code here which uses localProvider
 
             services.AddSingleton<IData, DataImpl>();
             services.AddSingleton<ICatalogService, CatalogServiceImpl>();
