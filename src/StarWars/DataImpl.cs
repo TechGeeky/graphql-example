@@ -18,6 +18,7 @@ namespace StarWars
                     if (!_isInitialized)
                     {
                         Console.WriteLine("Hello World: " + configName);
+                        _isInitialized = true;
                     }
                 }
             }
